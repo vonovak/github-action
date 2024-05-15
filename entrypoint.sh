@@ -317,10 +317,6 @@ if [ -n "$INPUT_CROWDIN_BRANCH_NAME" ]; then
   set -- "$@" --branch="${INPUT_CROWDIN_BRANCH_NAME}"
 fi
 
-if [ -n "$INPUT_IDENTITY" ]; then
-  set -- "$@" --identity="${INPUT_IDENTITY}"
-fi
-
 if [ -n "$INPUT_CONFIG" ]; then
   set -- "$@" --config="${INPUT_CONFIG}"
 fi
@@ -366,18 +362,6 @@ if [ -n "$INPUT_COMMAND" ]; then
 
   # in this case, we don't need to continue executing any further default behavior
   exit 0
-fi
-
-if [ -n "$INPUT_ADD_CROWDIN_BRANCH" ]; then
-  NEW_BRANCH_OPTIONS=$( get_branch_available_options "$@" )
-
-  if [ -n "$INPUT_NEW_BRANCH_PRIORITY" ]; then
-    NEW_BRANCH_OPTIONS="${NEW_BRANCH_OPTIONS} --priority=${INPUT_NEW_BRANCH_PRIORITY}"
-  fi
-
-  echo "CREATING BRANCH $INPUT_ADD_CROWDIN_BRANCH"
-
-  crowdin branch add "$INPUT_ADD_CROWDIN_BRANCH" $NEW_BRANCH_OPTIONS --title="${INPUT_NEW_BRANCH_TITLE}" --export-pattern="${INPUT_NEW_BRANCH_EXPORT_PATTERN}"
 fi
 
 if [ "$INPUT_UPLOAD_SOURCES" = true ]; then
@@ -439,10 +423,4 @@ if [ "$INPUT_DOWNLOAD_BUNDLE" ]; then
 
       push_to_branch
     fi
-fi
-
-if [ -n "$INPUT_DELETE_CROWDIN_BRANCH" ]; then
-  echo "REMOVING BRANCH $INPUT_DELETE_CROWDIN_BRANCH"
-
-  crowdin branch delete "$INPUT_DELETE_CROWDIN_BRANCH" $( get_branch_available_options "$@" )
 fi

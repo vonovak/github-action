@@ -116,11 +116,13 @@ jobs:
           upload_translations: false
           source: src/locale/en.json                     # Sources pattern
           translation: src/locale/%android_code%.json    # Translations pattern
-          project_id: ${{ secrets.CROWDIN_PROJECT_ID }}  # Crowdin Project ID
-          token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}   # Crowdin Personal Access Token
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
 ```
+
+The Action/CLI will automatically detect the [environment variables](https://crowdin.github.io/crowdin-cli/configuration#environment-variables) and use them for the configuration.
 
 > **Note**
 > To avoid any conflicts, do not use the `crowdin.yml` file in the repository when using the above configuration approach.
